@@ -2,16 +2,18 @@ import React from 'react';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import { withNavigation } from 'react-navigation';
+
 import {
   Container, Wrapper, Avatar, Title, Description,
 } from './styles';
 
-const RepositoryItem = ({ repository }) => (
-  <Container onPress={() => {}}>
+const RepositoryItem = ({ repository, navigation }) => (
+  <Container onPress={() => navigation.navigate('Issues', { ...repository })}>
     <Avatar source={{ uri: repository.avatar_url }} />
 
     <Wrapper>
-      <Title>{repository.name}</Title>
+      <Title>{repository.title}</Title>
       <Description>{repository.fullName}</Description>
     </Wrapper>
 
@@ -19,4 +21,4 @@ const RepositoryItem = ({ repository }) => (
   </Container>
 );
 
-export default RepositoryItem;
+export default withNavigation(RepositoryItem);

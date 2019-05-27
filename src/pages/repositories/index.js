@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 
-import { FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { Creators as RepositoryActions } from '~/store/ducks/repositories';
 
+import { FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import Header from '~/components/Header';
 import RepositoryItem from './RepositoryItem';
 
 import {
@@ -17,6 +16,10 @@ import {
 } from './styles';
 
 class Repositories extends Component {
+  static navigationOptions = {
+    title: 'GitIssues',
+  };
+
   state = {
     repositoryInput: '',
   };
@@ -35,8 +38,6 @@ class Repositories extends Component {
 
     return (
       <Container>
-        <Header title="GitIssues" />
-
         <Form>
           <Input
             hasError={error}

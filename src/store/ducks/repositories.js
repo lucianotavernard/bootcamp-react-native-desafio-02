@@ -18,6 +18,7 @@ export default function repositories(state = initialState, action) {
       return {
         ...state,
         data: [...state.data, action.payload.repository],
+        error: null,
         loading: false,
       };
     case Types.ADD_FAILURE:
