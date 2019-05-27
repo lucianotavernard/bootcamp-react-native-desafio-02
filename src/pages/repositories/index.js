@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -20,6 +21,23 @@ class Repositories extends Component {
     title: 'GitIssues',
   };
 
+  static propTypes = {
+    repositories: PropTypes.shape({
+      data: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number,
+          name: PropTypes.string,
+          fullName: PropTypes.string,
+          username: PropTypes.string,
+          avatar_url: PropTypes.string,
+        }),
+      ).isRequired,
+      error: PropTypes.string.isRequired,
+      loading: PropTypes.bool.isRequired,
+    }).isRequired,
+    addRepositoryRequest: PropTypes.func.isRequired,
+  };
+
   state = {
     repositoryInput: '',
   };
@@ -34,7 +52,9 @@ class Repositories extends Component {
 
   render() {
     const { repositoryInput } = this.state;
-    const { data: repositories, error, loading } = this.props.repositories;
+    const {
+      repositories: { data: repositories, error, loading },
+    } = this.props;
 
     return (
       <Container>

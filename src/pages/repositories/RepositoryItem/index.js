@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -20,5 +21,16 @@ const RepositoryItem = ({ repository, navigation }) => (
     <Icon name="chevron-right" size={16} />
   </Container>
 );
+
+RepositoryItem.propTypes = {
+  repository: PropTypes.shape({
+    title: PropTypes.string,
+    fullName: PropTypes.string,
+    avatar_url: PropTypes.string,
+  }).isRequired,
+  navigation: PropTypes.shape({
+    navigation: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default withNavigation(RepositoryItem);
