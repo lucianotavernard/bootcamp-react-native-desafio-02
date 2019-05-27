@@ -13,7 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import RepositoryItem from './RepositoryItem';
 
 import {
-  Container, Wrapper, Form, Input,
+  Container, Wrapper, Form, Input, Error,
 } from './styles';
 
 class Repositories extends Component {
@@ -32,15 +32,21 @@ class Repositories extends Component {
           avatar_url: PropTypes.string,
         }),
       ).isRequired,
-      error: PropTypes.string.isRequired,
+      error: PropTypes.string,
       loading: PropTypes.bool.isRequired,
+      refreshing: PropTypes.bool.isRequired,
     }).isRequired,
     addRepositoryRequest: PropTypes.func.isRequired,
+    loadRepositoriesRequest: PropTypes.func.isRequired,
   };
 
   state = {
     repositoryInput: '',
   };
+
+  componentDidMount() {
+    this.loadRepositories();
+  }
 
   handleSubmit = () => {
     const { repositoryInput } = this.state;
@@ -50,10 +56,17 @@ class Repositories extends Component {
     this.setState({ repositoryInput: '' });
   };
 
+  loadRepositories = () => {
+    const { loadRepositoriesRequest } = this.props;
+    loadRepositoriesRequest();
+  };
+
   render() {
     const { repositoryInput } = this.state;
     const {
-      repositories: { data: repositories, error, loading },
+      repositories: {
+        data: repositories, error, loading, refreshing,
+      },
     } = this.props;
 
     return (
@@ -74,10 +87,14 @@ class Repositories extends Component {
         </Form>
 
         <Wrapper>
+          {!!error && <Error>{error}</Error>}
+
           <FlatList
             data={repositories}
             keyExtractor={item => String(item.id)}
             renderItem={({ item }) => <RepositoryItem repository={item} />}
+            onRefresh={this.loadRepositories}
+            refreshing={refreshing}
           />
         </Wrapper>
       </Container>

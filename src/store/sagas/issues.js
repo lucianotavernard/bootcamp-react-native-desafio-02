@@ -26,6 +26,8 @@ export function* loadIssues(action) {
 
     yield put(IssuesActions.loadIssuesSuccess(repositoryData));
   } catch (error) {
-    yield put(IssuesActions.loadIssuesFailure('Ocorreu algum erro inesperado!'));
+    yield put(
+      IssuesActions.loadIssuesFailure('Ocorreu algum erro inesperado ao carregar as issues!'),
+    );
   }
 }

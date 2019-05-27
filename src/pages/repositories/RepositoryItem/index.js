@@ -14,7 +14,7 @@ const RepositoryItem = ({ repository, navigation }) => (
     <Avatar source={{ uri: repository.avatar_url }} />
 
     <Wrapper>
-      <Title>{repository.title}</Title>
+      <Title>{repository.name}</Title>
       <Description>{repository.fullName}</Description>
     </Wrapper>
 
@@ -24,12 +24,12 @@ const RepositoryItem = ({ repository, navigation }) => (
 
 RepositoryItem.propTypes = {
   repository: PropTypes.shape({
-    title: PropTypes.string,
+    name: PropTypes.string,
     fullName: PropTypes.string,
     avatar_url: PropTypes.string,
   }).isRequired,
   navigation: PropTypes.shape({
-    navigation: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired,
   }).isRequired,
 };
 

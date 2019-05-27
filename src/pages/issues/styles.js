@@ -28,3 +28,11 @@ export const ButtonText = styled.Text`
   font-size: ${({ active }) => (active ? '15px' : '14px')};
   font-weight: ${({ active }) => (active ? 'bold' : 'normal')};
 `;
+
+export const Error = styled.Text`
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10px 0;
+  color: #e37a7a;
+`;

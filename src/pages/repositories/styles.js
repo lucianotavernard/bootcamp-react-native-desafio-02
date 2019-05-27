@@ -21,11 +21,19 @@ export const Form = styled.View`
 export const Input = styled.TextInput`
   flex: 1;
   margin-right: 10px;
-  padding: 8px;
+  padding: 10px;
   border-radius: 4px;
   color: #333;
   background: #fff;
   font-size: 14px;
   border-width: 1px;
   border-color: ${({ hasError }) => (hasError ? '#e37a7a' : 'transparent')};
+`;
+
+export const Error = styled.Text`
+  margin: 10px 0;
+  color: #e37a7a;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
 `;

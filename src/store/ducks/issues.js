@@ -8,7 +8,7 @@ const initialState = {
   data: [],
   error: null,
   loading: false,
-  selected: '',
+  selected: 'all',
 };
 
 export default function issues(state = initialState, action) {
@@ -18,7 +18,7 @@ export default function issues(state = initialState, action) {
     case Types.LOAD_SUCCESS:
       return {
         ...state,
-        data: action.payload.issues,
+        data: action.payload.issueList,
         error: null,
         loading: false,
       };
@@ -38,10 +38,10 @@ export const Creators = {
     },
   }),
 
-  loadIssuesSuccess: issues => ({
+  loadIssuesSuccess: issueList => ({
     type: Types.LOAD_SUCCESS,
     payload: {
-      issues,
+      issueList,
     },
   }),
 
