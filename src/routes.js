@@ -1,13 +1,21 @@
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createAppContainer, createStackNavigator } from 'react-navigation';
 
 import Repositories from '~/pages/repositories';
 import Issues from '~/pages/issues';
 
 const Routes = createAppContainer(
-  createSwitchNavigator({
-    Repositories,
-    Issues,
-  }),
+  createStackNavigator(
+    {
+      Repositories,
+      Issues,
+    },
+    {
+      defaultNavigationOptions: {
+        headerTintColor: '#333',
+        headerBackTitle: null,
+      },
+    },
+  ),
 );
 
 export default Routes;
