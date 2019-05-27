@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -18,5 +19,15 @@ const IssueItem = ({ issue }) => (
     <Icon name="chevron-right" size={16} />
   </Container>
 );
+
+IssueItem.propTypes = {
+  issue: PropTypes.shape({
+    owner: PropTypes.shape({
+      avatar_url: PropTypes.string,
+      username: PropTypes.string,
+    }).isRequired,
+    title: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default IssueItem;

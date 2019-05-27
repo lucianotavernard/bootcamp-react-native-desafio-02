@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,6 +18,28 @@ class Issues extends Component {
     title: navigation.getParam('name'),
   });
 
+  static propTypes = {
+    issues: PropTypes.shape({
+      data: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number,
+          title: PropTypes.string,
+          url: PropTypes.string,
+          owner: PropTypes.shape({
+            avatar_url: PropTypes.string,
+            username: PropTypes.string,
+          }),
+        }),
+      ).isRequired,
+      loading: PropTypes.bool.isRequired,
+      selected: PropTypes.string.isRequired,
+    }).isRequired,
+    loadIssuesRequest: PropTypes.func.isRequired,
+    navigation: PropTypes.shape({
+      getParam: PropTypes.func.isRequired,
+    }).isRequired,
+  };
+
   componentDidMount() {
     const { loadIssuesRequest, navigation } = this.props;
     loadIssuesRequest(navigation.getParam('fullName'));
@@ -28,7 +51,9 @@ class Issues extends Component {
   };
 
   render() {
-    const { data: issues, loading, selected } = this.props.issues;
+    const {
+      issues: { data: issues, loading, selected },
+    } = this.props;
 
     return (
       <Container>
