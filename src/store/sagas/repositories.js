@@ -9,9 +9,10 @@ import { Creators as RepositoriesActions } from '~/store/ducks/repositories';
 export function* addRepository(action) {
   try {
     const { repository } = action.payload;
-    const { data: repositories } = yield select(state => state.repositories);
+    const repositories = yield select(state => state.repositories);
+    const repositoryDuplicated = repositories.data.find(repo => repo.fullName === repository);
 
-    if (repositories.find(repo => repo.fullName === repository)) {
+    if (repositoryDuplicated) {
       yield put(
         RepositoriesActions.addRepositoryFailure('O repositório informado já existe na lista!'),
       );
@@ -31,11 +32,12 @@ export function* addRepository(action) {
 
     AsyncStorage.setItem(
       '@GitIssues:repositories',
-      JSON.stringify([...repositories, repositoryData]),
+      JSON.stringify([...repositories.data, repositoryData]),
     );
 
     yield put(RepositoriesActions.addRepositorySuccess(repositoryData));
   } catch (error) {
+    console.tron.log(error);
     yield put(RepositoriesActions.addRepositoryFailure('O repositório informado não existe'));
   }
 }
@@ -43,7 +45,7 @@ export function* addRepository(action) {
 export function* loadRepositories() {
   try {
     const repositories = yield AsyncStorage.getItem('@GitIssues:repositories');
-    const repositoryData = JSON.parse(repositories);
+    const repositoryData = JSON.parse(repositories) || [];
 
     yield put(RepositoriesActions.loadRepositoriesSuccess(repositoryData));
   } catch (error) {
